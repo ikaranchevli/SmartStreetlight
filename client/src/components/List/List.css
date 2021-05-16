@@ -1,0 +1,32 @@
+.list {
+  align-items: center;
+  justify-content: center;
+  width: 78%;
+  margin-left: 20px;
+  height: 600px;
+  font-size: 14px;
+}
+
+.dataTables_wrapper .rdt_TableCell{
+  font-size:14px;
+}
+
+.bulbIconCustom {
+color: #fff;
+padding: 8px 12px 8px 12px;
+border-radius: 20px;
+font-size: 12px;
+}
+
+.customTextTable{
+  align-items: center;
+  justify-content: center;
+  width: 65%;
+  margin-left: 20px;
+  height: 600px;
+  font-size: 12px;
+}
+
+.list > div {
+z-index: -1 !important;
+}
