@@ -8,6 +8,7 @@ import Navigationbar from "./Navigationbar.jsx";
 import SearchBar from "./SearchBar.jsx";
 import React from "react";
 import Devices from "./Devices.jsx";
+import DeviceInfo from "./DeviceInfo";
 import { helpers, DeviceStatus } from "../helpers/history.js";
 
 var today = new Date();
@@ -18,6 +19,7 @@ class Portal extends Component {
     super(props);
 
     this.Map = React.createRef();
+    this.devicesComponent = React.createRef();
 
     this.state = {
       apiResponse: [],
@@ -26,7 +28,14 @@ class Portal extends Component {
       searchDevice: "",
       filterStatus: "None",
       filterCouncil: null,
+      selectedLight: null
     };
+  }
+
+  callbackFunctionDeviceSelected = (selectedDevice) => {
+    console.log(selectedDevice);
+    this.setState({ selectedLight: selectedDevice });
+    this.devicesComponent.current.assignSelectedDevice(selectedDevice);
   }
 
   //this is the API call from the server, to get streetlight data.
@@ -174,6 +183,7 @@ class Portal extends Component {
             ref={this.Map}
             data={this.state.data}
             searchDevice={this.state.searchDevice}
+            portalDeviceSelectedCallback = {this.callbackFunctionDeviceSelected}
           />
         )}
         {this.state.mapView === "list" && 
@@ -182,7 +192,10 @@ class Portal extends Component {
             data={this.state.data} 
             />}
 
-        <Devices device={this.state.apiResponse} />
+        <Devices 
+              ref={this.devicesComponent}
+              device={this.state.apiResponse} 
+        />
       </div>
     );
   }

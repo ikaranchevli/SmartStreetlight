@@ -4,6 +4,9 @@ import { Component, Fragment } from "react";
 import "./Map/Map.css";
 import shouldPureComponentUpdate from "react-pure-render";
 import currentLocationMarker from "./images/currentLocation.svg";
+
+import Devices from "./Devices";
+import MapDeviceInfo from "./MapDeviceInfo";
 import { FaLocationArrow } from "react-icons/fa";
 
 var today = new Date();
@@ -42,6 +45,11 @@ class GoogleMaps extends Component {
       markerOpacity: 1,
     };
   }
+
+  sendSelectedDevice = (selectedLight) => {
+    this.props.portalDeviceSelectedCallback(selectedLight);
+  }
+
 
   lightColor(light) {
     if (light.CURRENT_MAGNITUDE > 0) {
@@ -139,6 +147,7 @@ class GoogleMaps extends Component {
                   selectedLight: lights,
                   markerOpacity: 0.5,
                 });
+                this.sendSelectedDevice(lights);
               }}
               className="marker"
               style={{
@@ -165,6 +174,7 @@ class GoogleMaps extends Component {
                     selectedLight: null,
                     markerOpacity: 1,
                   });
+                  this.sendSelectedDevice(this.state.selectedLight);
                 }}
               ></div>
               <div className="marker-info-window">
@@ -207,6 +217,13 @@ class GoogleMaps extends Component {
         >
           <FaLocationArrow className="location-icon" />
         </div>
+        <div>
+        {/* <DeviceInfo device={this.state.selectedLight} /> */}
+       
+      </div>
+      {/* <div>
+        <MapDeviceInfo device={this.state.selectedLight} />
+      </div> */}
       </div>
     );
   }

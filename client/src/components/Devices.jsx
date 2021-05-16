@@ -12,11 +12,17 @@ import Unreachable from "./images/unreachable.svg";
 import streetLightsData from "./StreetLights.json";
 
 class Devices extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     devices: [],
     showHide: false,
     statedDevice: this.props.device,
     showHideDeviceStat: false,
+    showDeviceInfo: false,
   };
 
   componentDidMount() {
@@ -34,6 +40,48 @@ class Devices extends Component {
     // this.setState({
     //   devices: alldevices,
     // });
+  }
+
+  assignSelectedDevice(device) {
+    var doShowDeviceInfo = false;
+    if(device){
+      doShowDeviceInfo = true;
+    }
+    this.setState({
+      showDeviceInfo: doShowDeviceInfo,
+      selectedDevice: device,
+    });
+  }
+
+  valueChecker(value) {
+    if (value == null) {
+      return "Not Available";
+    }
+    return value;
+  }
+
+  getState(device) {
+    if(device){
+      if (device.CURRENT_MAGNITUDE > 0) {
+        return <text className="status-on"> On </text>;
+    } else if (device.CURRENT_MAGNITUDE === 0) {
+        return <text className="status-off"> Off </text>;
+    } else if (device.CURRENT_MAGNITUDE == null && device.UIQ_DEVICE_STATE == null) {
+        return <text className="status-fault"> Faulty </text>;
+    } else if (device.UIQ_DEVICE_STATE === "Unreachable") {
+        return <text className="status-unreachable"> Unreachable </text>;
+    } else if (device.UIQ_DEVICE_STATE === "New") {
+      return <text className="status-new"> New </text>;
+    } else{
+      return <text className="status-unnknow"> Unknow </text>;
+    }
+    }
+  };
+
+  hideDeviceInfo() {
+    this.setState({
+      showDeviceInfo: false,
+    });
   }
 
   handleModalShowHide(device) {
@@ -288,6 +336,8 @@ class Devices extends Component {
 
     return (
       <Fragment>
+
+
         <div className="infoTab">
           <div className="infoTab-header text-center align-middle">
               <span className="bulbIcon ON mt-10" style={{ backgroundColor: "#fff", color: "#000" }}>
@@ -409,68 +459,77 @@ class Devices extends Component {
             </div>
           
         </div>
-        <Modal centered show={this.state.showHide}>
-          <Modal.Header closeButton onClick={() => this.handleModalHide()}>
-            <Modal.Title>Device Information</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <ul>
-              <p>
-                <strong>Device ID : </strong>{" "}
-                <span> {this.state.statedDevice.UTIL_DEVICE_ID} </span>
-              </p>
-              <p>
-                <strong>Mac Address : </strong>
-                <span> {this.state.statedDevice.NIC_MAC_ID} </span>
-              </p>
-              <p>
-                <strong>Device State : </strong>
-                <span> {this.state.statedDevice.UIQ_DEVICE_STATE} </span>
-              </p>
-              <p>
-                <strong>IP Address : </strong>
-                <span> {this.state.statedDevice.IP_ADDRESS} </span>
-              </p>
-              <p>
-                <strong>Latitude : </strong>
-                <span> {this.state.statedDevice.LATITUDE_DEG} </span>
-              </p>
-              <p>
-                <strong>Longitude : </strong>
-                <span>{this.state.statedDevice.LONGITUDE_DEG}</span>
-              </p>
-              <p>
-                <strong>Insert TS : </strong>
-                <span>{this.state.statedDevice.INSERT_TS}</span>
-              </p>
-              <p>
-                <strong>Premise ID : </strong>
-                <span> {this.state.statedDevice.PREMISE_ID} </span>
-              </p>
-              <p>
-                <strong>Address : </strong>
-                <span>{this.state.statedDevice.ADDRESS1}</span>
-              </p>
-              <p>
-                <strong>Instant Voltage : </strong>
-                <span>{this.state.statedDevice.INSTANT_VOLTAGE}</span>
-              </p>
-              <p>
-                <strong>Energy Delicvered : </strong>
-                <span>{this.state.statedDevice.ENERGY_DELIVERED}</span>
-              </p>
-              <p>
-                <strong>Current Magnitude : </strong>
-                <span>{this.state.statedDevice.CURRENT_MAGNITUDE}</span>
-              </p>
-            </ul>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.handleModalHide()}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
+
+
+        {this.state.selectedDevice != null && this.state.showDeviceInfo==true && (
+          <div className="device-infoTab">
+            <div className="device-infoTab-header text-center align-middle">
+              <span className="mt-10 mr-2" style={{color: "#ff0000", cursor:"pointer" }} 
+                onClick={() => this.hideDeviceInfo()}
+              >
+                <i className="fa fa-times-circle"></i>
+              </span>
+              Device Information
+            </div> 
+            <div>
+              <ul className="list-group">
+                <li className="list-group-item">
+                  <strong>Device ID : </strong>{" "}
+                  <span> {this.valueChecker(this.state.selectedDevice.UTIL_DEVICE_ID)} </span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Mac Address : </strong>
+                  <span> {this.valueChecker(this.state.selectedDevice.NIC_MAC_ID)} </span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Device State : </strong>
+                  <span> {this.getState(this.state.selectedDevice)} </span>
+                </li>
+                <li className="list-group-item">
+                  <strong>IP Address : </strong>
+                  <span> {this.valueChecker(this.state.selectedDevice.IP_ADDRESS)} </span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Latitude : </strong>
+                  <span> {this.valueChecker(this.state.selectedDevice.LATITUDE_DEG)} </span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Longitude : </strong>
+                  <span>{this.valueChecker(this.state.selectedDevice.LONGITUDE_DEG)}</span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Insert TS : </strong>
+                  <span>{this.valueChecker(this.state.selectedDevice.INSERT_TS)}</span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Premise ID : </strong>
+                  <span> {this.valueChecker(this.state.selectedDevice.PREMISE_ID)} </span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Address : </strong>
+                  <span>{this.valueChecker(this.state.selectedDevice.ADDRESS1)}</span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Instant Voltage : </strong>
+                  <span>{this.valueChecker(this.state.selectedDevice.INSTANT_VOLTAGE)}</span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Energy Delicvered : </strong>
+                  <span>{this.valueChecker(this.state.selectedDevice.ENERGY_DELIVERED)}</span>
+                </li>
+                <li className="list-group-item">
+                  <strong>Current Magnitude : </strong>
+                  <span>{this.valueChecker(this.state.selectedDevice.CURRENT_MAGNITUDE)}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        
+
+
+        
         <Modal centered show={this.state.showHideDeviceStat}>
           <Modal.Header
             closeButton
