@@ -8,8 +8,7 @@ import Navigationbar from "./Navigationbar.jsx";
 import SearchBar from "./SearchBar.jsx";
 import React from "react";
 import Devices from "./Devices.jsx";
-import DeviceInfo from "./DeviceInfo";
-import { helpers, DeviceStatus } from "../helpers/history.js";
+
 
 var today = new Date();
 var curHr = today.getHours();

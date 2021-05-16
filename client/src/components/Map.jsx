@@ -5,8 +5,6 @@ import "./Map/Map.css";
 import shouldPureComponentUpdate from "react-pure-render";
 import currentLocationMarker from "./images/currentLocation.svg";
 
-import Devices from "./Devices";
-import MapDeviceInfo from "./MapDeviceInfo";
 import { FaLocationArrow } from "react-icons/fa";
 
 var today = new Date();
@@ -217,13 +215,8 @@ class GoogleMaps extends Component {
         >
           <FaLocationArrow className="location-icon" />
         </div>
-        <div>
-        {/* <DeviceInfo device={this.state.selectedLight} /> */}
        
-      </div>
-      {/* <div>
-        <MapDeviceInfo device={this.state.selectedLight} />
-      </div> */}
+    
       </div>
     );
   }
