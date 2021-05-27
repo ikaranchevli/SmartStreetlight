@@ -6,8 +6,8 @@ import { IoSearchSharp } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 const SearchBar = (props) => {
-  const [mapIcon, setMapIcon] = useState("#006ab1");
-  const [listIcon, setListIcon] = useState("");
+  const [mapIcon, setMapIcon] = useState("");
+  const [listIcon, setListIcon] = useState("#006ab1");
   const [councilFilterDefault, setCouncilFilterDefault] =
     useState("Select Council");
   const [councilFilterMenu, setCouncilFilterMenu] = useState(false);
@@ -101,17 +101,8 @@ const SearchBar = (props) => {
                 <p
                   className="filter-dropdown-menu-item"
                   onClick={() => {
-                    setStatusFilterDefault("Faulty/Unknown");
-                    props.statusFilter(null);
-                  }}
-                >
-                  Faulty/Unkown
-                </p>
-                <p
-                  className="filter-dropdown-menu-item"
-                  onClick={() => {
                     setStatusFilterDefault("On");
-                    props.statusFilter(1);
+                    props.statusFilter(0);
                   }}
                 >
                   On
@@ -120,10 +111,19 @@ const SearchBar = (props) => {
                   className="filter-dropdown-menu-item"
                   onClick={() => {
                     setStatusFilterDefault("Off");
-                    props.statusFilter(0);
+                    props.statusFilter(6);
                   }}
                 >
                   Off
+                </p>
+                <p
+                  className="filter-dropdown-menu-item"
+                  onClick={() => {
+                    setStatusFilterDefault("Faulty/Unknown");
+                    props.statusFilter(null);
+                  }}
+                >
+                  Faulty/Unkown
                 </p>
                 <p
                   className="filter-dropdown-menu-item"
@@ -180,7 +180,21 @@ const SearchBar = (props) => {
                 >
                   All
                 </p>
-                <p
+                {props.councilList.map((council) => {
+                  return (
+                    <p
+                      className="filter-dropdown-menu-item"
+                      onClick={() => {
+                        setCouncilFilterDefault("All");
+                        props.councilFilter(council);
+                      }}
+                    >
+                      {console.log(council)}
+                      {council}
+                    </p>
+                  );
+                })}
+                {/* <p
                   className="filter-dropdown-menu-item"
                   onClick={() => {
                     setCouncilFilterDefault("3000");
@@ -215,7 +229,7 @@ const SearchBar = (props) => {
                   }}
                 >
                   3003
-                </p>
+                </p> */}
               </div>
             )}
           </div>

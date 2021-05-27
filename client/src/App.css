@@ -325,3 +325,24 @@ label {
 .device-summary {
   max-width: 400px !important;
 }
+
+.anticon {
+  display: inline-block;
+  color: inherit;
+  font-style: normal;
+  line-height: 0;
+  text-align: center;
+  text-transform: none;
+  vertical-align: 0em !important;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ant-switch {
+  background-color: red !important;
+}
+
+.ant-switch-checked {
+  background-color: green !important;
+}

@@ -8,11 +8,11 @@ import SwitchedOff from "./images/switchedOff.svg";
 import Falty from "./images/faulty.svg";
 import ToBeInstalled from "./images/tobeInstalled.svg";
 import Unreachable from "./images/unreachable.svg";
+import { IoNavigate } from "react-icons/io5";
 
 import streetLightsData from "./StreetLights.json";
 
 class Devices extends Component {
-
   constructor(props) {
     super(props);
   }
@@ -44,7 +44,7 @@ class Devices extends Component {
 
   assignSelectedDevice(device) {
     var doShowDeviceInfo = false;
-    if(device){
+    if (device) {
       doShowDeviceInfo = true;
     }
     this.setState({
@@ -61,22 +61,25 @@ class Devices extends Component {
   }
 
   getState(device) {
-    if(device){
+    if (device) {
       if (device.CURRENT_MAGNITUDE > 0) {
         return <text className="status-on"> On </text>;
-    } else if (device.CURRENT_MAGNITUDE === 0) {
+      } else if (device.CURRENT_MAGNITUDE === 0) {
         return <text className="status-off"> Off </text>;
-    } else if (device.CURRENT_MAGNITUDE == null && device.UIQ_DEVICE_STATE == null) {
+      } else if (
+        device.CURRENT_MAGNITUDE == null &&
+        device.UIQ_DEVICE_STATE == null
+      ) {
         return <text className="status-fault"> Faulty </text>;
-    } else if (device.UIQ_DEVICE_STATE === "Unreachable") {
+      } else if (device.UIQ_DEVICE_STATE === "Unreachable") {
         return <text className="status-unreachable"> Unreachable </text>;
-    } else if (device.UIQ_DEVICE_STATE === "New") {
-      return <text className="status-new"> New </text>;
-    } else{
-      return <text className="status-unnknow"> Unknow </text>;
+      } else if (device.UIQ_DEVICE_STATE === "New") {
+        return <text className="status-new"> New </text>;
+      } else {
+        return <text className="status-unnknow"> Unknow </text>;
+      }
     }
-    }
-  };
+  }
 
   hideDeviceInfo() {
     this.setState({
@@ -261,7 +264,7 @@ class Devices extends Component {
       var status = helpers.getStatusOfDeviceNew(this.state.devices[i]);
       if (status === DeviceStatus.FAULTY) {
         count = count + 1;
-      } 
+      }
     }
     return <span>{count}</span>;
   };
@@ -305,7 +308,7 @@ class Devices extends Component {
       var status = helpers.getStatusOfDeviceNew(this.state.devices[i]);
       if (status === DeviceStatus.FAULTY) {
         count = count + 1;
-      } 
+      }
       if (status === DeviceStatus.UNKNOWN) {
         count = count + 1;
       }
@@ -336,200 +339,264 @@ class Devices extends Component {
 
     return (
       <Fragment>
-
-
-        <div className="infoTab">
+        <div className="infoTab border-left">
           <div className="infoTab-header text-center align-middle">
-              <span className="bulbIcon ON mt-10" style={{ backgroundColor: "#fff", color: "#000" }}>
-                <i className="fa fa-lightbulb"></i>
-              </span>
-              Device Summary
+            <span
+              className="bulbIcon ON mt-10"
+              style={{ backgroundColor: "#fff", color: "#000" }}
+            >
+              <i className="fa fa-lightbulb"></i>
+            </span>
+            Device Summary
           </div>
 
-
-            <div className="container device-summary">
-                <div className="row border border-1 rounded-top p-3">
-                  <div className="col-3">
-                    <img src={SwitchedOn} />
-                  </div>
-                  <div className="col-6 align-self-center infoTab-row-text">Switched On</div>
-                  <div className="col-3  text-center align-self-center">
-                    <div className="row">
-                      <div className="col" style={{ fontSize: "1.6rem" }}>
-                        <b>{this.calcOnStatusSummary.call(this)}</b>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div
-                        className="col"
-                        style={{ fontSize: "0.8rem", color: "gray" }}
-                      >
-                        Devices
-                  </div>
-                    </div>
-                  </div>
-                </div>
-              <div className="row border border-1 border-top-0 p-3">
-                <div className="col-3">
-                  <img src={SwitchedOff} />
-                </div>
-                <div className="col-6 align-self-center infoTab-row-text">Switched Off</div>
-                <div className="col-3 text-center align-self-center">
-                  <div className="row">
-                    <div className="col" style={{ fontSize: "1.6rem" }}>
-                      <b>{this.calcOffStatusSummary.call(this)}</b>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div
-                      className="col"
-                      style={{ fontSize: "0.8rem", color: "gray" }}
-                    >
-                      Devices
+          <div className="container device-summary p-4">
+            <div className="row border border-1 rounded-top p-3">
+              <div className="col-3">
+                <img src={SwitchedOn} />
               </div>
+              <div className="col-6 align-self-center infoTab-row-text">
+                Switched On
+              </div>
+              <div className="col-3  text-center align-self-center">
+                <div className="row">
+                  <div className="col" style={{ fontSize: "1.6rem" }}>
+                    <b>{this.calcOnStatusSummary.call(this)}</b>
+                  </div>
+                </div>
+                <div className="row">
+                  <div
+                    className="col"
+                    style={{ fontSize: "0.8rem", color: "gray" }}
+                  >
+                    Devices
                   </div>
                 </div>
               </div>
-              <div className="row border border-1 border-top-0 p-3">
-                <div className="col-3">
-                  <img src={Falty} />
-                </div>
-                <div className="col-6 align-self-center infoTab-row-text">Faulty</div>
-                <div className="col-3 text-center align-self-center">
-                  <div className="row">
-                    <div className="col" style={{ fontSize: "1.6rem" }}>
-                      <b>{this.calcFaultyUnknownStatusSummary.call(this)}</b>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div
-                      className="col"
-                      style={{ fontSize: "0.8rem", color: "gray" }}
-                    >
-                      Devices
-              </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="row border border-1 border-top-0 rounded-bottom p-3">
-                <div className="col-3">
-                  <img src={ToBeInstalled} />
-                </div>
-                <div className="col-6 align-self-center infoTab-row-text">To Be Installed</div>
-                <div className="col-3 text-center align-self-center">
-                  <div className="row">
-                    <div className="col" style={{ fontSize: "1.6rem" }}>
-                      <b>{this.calcNewStatusSummary.call(this)}</b>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div
-                      className="col"
-                      style={{ fontSize: "0.8rem", color: "gray" }}
-                    >
-                      Devices
-                </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row border border-1 border-top-0 rounded-bottom p-3">
-                <div className="col-3">
-                  <img src={Unreachable} />
-                </div>
-                <div className="col-6 align-self-center infoTab-row-text">Unreachable</div>
-                <div className="col-3 text-center align-self-center">
-                  <div className="row">
-                    <div className="col" style={{ fontSize: "1.6rem" }}>
-                      <b>{this.calcUnreachableStatusSummary.call(this)}</b>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div
-                      className="col"
-                      style={{ fontSize: "0.8rem", color: "gray" }}
-                    >
-                      Devices
-                </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
-          
+            <div className="row border border-1 border-top-0 p-3">
+              <div className="col-3">
+                <img src={SwitchedOff} />
+              </div>
+              <div className="col-6 align-self-center infoTab-row-text">
+                Switched Off
+              </div>
+              <div className="col-3 text-center align-self-center">
+                <div className="row">
+                  <div className="col" style={{ fontSize: "1.6rem" }}>
+                    <b>{this.calcOffStatusSummary.call(this)}</b>
+                  </div>
+                </div>
+                <div className="row">
+                  <div
+                    className="col"
+                    style={{ fontSize: "0.8rem", color: "gray" }}
+                  >
+                    Devices
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row border border-1 border-top-0 p-3">
+              <div className="col-3">
+                <img src={Falty} />
+              </div>
+              <div className="col-6 align-self-center infoTab-row-text">
+                Faulty
+              </div>
+              <div className="col-3 text-center align-self-center">
+                <div className="row">
+                  <div className="col" style={{ fontSize: "1.6rem" }}>
+                    <b>{this.calcFaultyUnknownStatusSummary.call(this)}</b>
+                  </div>
+                </div>
+                <div className="row">
+                  <div
+                    className="col"
+                    style={{ fontSize: "0.8rem", color: "gray" }}
+                  >
+                    Devices
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row border border-1 border-top-0 p-3">
+              <div className="col-3">
+                <img src={ToBeInstalled} />
+              </div>
+              <div className="col-6 align-self-center infoTab-row-text">
+                To Be Installed
+              </div>
+              <div className="col-3 text-center align-self-center">
+                <div className="row">
+                  <div className="col" style={{ fontSize: "1.6rem" }}>
+                    <b>{this.calcNewStatusSummary.call(this)}</b>
+                  </div>
+                </div>
+                <div className="row">
+                  <div
+                    className="col"
+                    style={{ fontSize: "0.8rem", color: "gray" }}
+                  >
+                    Devices
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row border border-1 border-top-0 rounded-bottom p-3">
+              <div className="col-3">
+                <img src={Unreachable} />
+              </div>
+              <div className="col-6 align-self-center infoTab-row-text">
+                Unreachable
+              </div>
+              <div className="col-3 text-center align-self-center">
+                <div className="row">
+                  <div className="col" style={{ fontSize: "1.6rem" }}>
+                    <b>{this.calcUnreachableStatusSummary.call(this)}</b>
+                  </div>
+                </div>
+                <div className="row">
+                  <div
+                    className="col"
+                    style={{ fontSize: "0.8rem", color: "gray" }}
+                  >
+                    Devices
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-
-        {this.state.selectedDevice != null && this.state.showDeviceInfo==true && (
-          <div className="device-infoTab">
-            <div className="device-infoTab-header text-center align-middle">
-              <span className="mt-10 mr-2" style={{color: "#ff0000", cursor:"pointer" }} 
-                onClick={() => this.hideDeviceInfo()}
-              >
-                <i className="fa fa-times-circle"></i>
-              </span>
-              Device Information
-            </div> 
-            <div>
-              <ul className="list-group">
-                <li className="list-group-item">
-                  <strong>Device ID : </strong>{" "}
-                  <span> {this.valueChecker(this.state.selectedDevice.UTIL_DEVICE_ID)} </span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Mac Address : </strong>
-                  <span> {this.valueChecker(this.state.selectedDevice.NIC_MAC_ID)} </span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Device State : </strong>
-                  <span> {this.getState(this.state.selectedDevice)} </span>
-                </li>
-                <li className="list-group-item">
-                  <strong>IP Address : </strong>
-                  <span> {this.valueChecker(this.state.selectedDevice.IP_ADDRESS)} </span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Latitude : </strong>
-                  <span> {this.valueChecker(this.state.selectedDevice.LATITUDE_DEG)} </span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Longitude : </strong>
-                  <span>{this.valueChecker(this.state.selectedDevice.LONGITUDE_DEG)}</span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Insert TS : </strong>
-                  <span>{this.valueChecker(this.state.selectedDevice.INSERT_TS)}</span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Premise ID : </strong>
-                  <span> {this.valueChecker(this.state.selectedDevice.PREMISE_ID)} </span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Address : </strong>
-                  <span>{this.valueChecker(this.state.selectedDevice.ADDRESS1)}</span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Instant Voltage : </strong>
-                  <span>{this.valueChecker(this.state.selectedDevice.INSTANT_VOLTAGE)}</span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Energy Delicvered : </strong>
-                  <span>{this.valueChecker(this.state.selectedDevice.ENERGY_DELIVERED)}</span>
-                </li>
-                <li className="list-group-item">
-                  <strong>Current Magnitude : </strong>
-                  <span>{this.valueChecker(this.state.selectedDevice.CURRENT_MAGNITUDE)}</span>
-                </li>
-              </ul>
+        {this.state.selectedDevice != null &&
+          this.state.showDeviceInfo == true && (
+            <div className="device-infoTab">
+              <div className="device-infoTab-header text-center align-middle">
+                <span
+                  className="mt-10 mr-4"
+                  style={{ color: "#b3b2b2", cursor: "pointer" }}
+                  onClick={() => this.hideDeviceInfo()}
+                >
+                  <i className="fas fa-chevron-left"></i>
+                </span>
+                Device Information
+              </div>
+              <div className="p-3">
+                <ul className="list-group">
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Device ID : </strong>{" "}
+                    <span>
+                      {" "}
+                      {this.valueChecker(
+                        this.state.selectedDevice.UTIL_DEVICE_ID
+                      )}{" "}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Mac Address : </strong>
+                    <span>
+                      {" "}
+                      {this.valueChecker(
+                        this.state.selectedDevice.NIC_MAC_ID
+                      )}{" "}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Device State : </strong>
+                    <span> {this.getState(this.state.selectedDevice)} </span>
+                  </li>
+                  {/* <li className="list-group-item">
+                    <strong>IP Address : </strong>
+                    <span>
+                      {this.valueChecker(
+                        this.state.selectedDevice.IP_ADDRESS
+                      )}
+                    </span>
+                  </li> */}
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Latitude : </strong>
+                    <span>
+                      {" "}
+                      {this.valueChecker(
+                        this.state.selectedDevice.LATITUDE_DEG
+                      )}{" "}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Longitude : </strong>
+                    <span>
+                      {this.valueChecker(
+                        this.state.selectedDevice.LONGITUDE_DEG
+                      )}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Insert TS : </strong>
+                    <span>
+                      {this.valueChecker(this.state.selectedDevice.INSERT_TS)}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Premise ID : </strong>
+                    <span>
+                      {" "}
+                      {this.valueChecker(
+                        this.state.selectedDevice.PREMISE_ID
+                      )}{" "}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Address : </strong>
+                    <span>
+                      {this.valueChecker(this.state.selectedDevice.ADDRESS1)}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Instant Voltage : </strong>
+                    <span>
+                      {this.valueChecker(
+                        this.state.selectedDevice.INSTANT_VOLTAGE
+                      )}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Energy Delicvered : </strong>
+                    <span>
+                      {this.valueChecker(
+                        this.state.selectedDevice.ENERGY_DELIVERED
+                      )}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
+                    <strong>Current Magnitude : </strong>
+                    <span>
+                      {this.valueChecker(
+                        this.state.selectedDevice.CURRENT_MAGNITUDE
+                      )}
+                    </span>
+                  </li>
+                </ul>
+                <a
+                  style={{ float: "right" }}
+                  className="btn btn-outline-primary mt-2"
+                  href={
+                    "http://maps.google.com/maps?q=" +
+                    this.state.selectedDevice.LATITUDE_DEG +
+                    "," +
+                    this.state.selectedDevice.LONGITUDE_DEG
+                  }
+                  target="_blank"
+                >
+                  <IoNavigate className="mr-2 mb-1" />
+                  Navigate
+                </a>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        
-
-
-        
         <Modal centered show={this.state.showHideDeviceStat}>
           <Modal.Header
             closeButton

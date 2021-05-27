@@ -59,13 +59,24 @@ class UserService {
     );
   }
 
-  updatePassword(email, newpass) {
-    return axios.get(
-      API_URL + "SetPass?email=" + email + "&password=" + newpass,
-      {
-        headers: authHeader(),
-      }
+  updatePassword(email, password, flag) {
+    return axios.post(
+      API_URL + "SetPass",
+      { email, password, flag },
+      { headers: authHeader() }
     );
+  }
+
+  updateUserStatus(email) {
+    return axios.get(API_URL + "ChangeStatus?email=" + email, {
+      headers: authHeader(),
+    });
+  }
+
+  checkChangePassFlag(email) {
+    return axios.get(API_URL + "checkChangePassFlag?email=" + email, {
+      headers: authHeader(),
+    });
   }
 }
 

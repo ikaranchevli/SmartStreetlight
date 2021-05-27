@@ -49,7 +49,7 @@
   height: 60px;
   width: 60px;
   right: calc(10% - 15px);
-  top: calc(10% - 80px);
+  top: calc(10% - 82px);
 }
 
 .user-image {
@@ -132,7 +132,7 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   overflow: hidden;
   padding: 0.5rem;
-  z-index: 1;
+  z-index: 1000;
 }
 
 .dropdown-menu-items {

@@ -5,7 +5,7 @@
   top: 150px;
   bottom: 0px;
   outline: none;
-  z-index: -2;
+  z-index: 0;
   -webkit-transition: all 0.2s ease-in;
 }
 
@@ -117,4 +117,3 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 /*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
-

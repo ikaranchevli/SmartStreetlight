@@ -54,9 +54,27 @@ module.exports = function (app) {
     controller.editUser
   );
 
-  app.get(
+  app.post(
     "/api/test/SetPass",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken],
     controller.updatePassword
+  );
+
+  app.get(
+    "/api/test/ChangeStatus",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.changeStatus
+  );
+
+  app.get(
+    "/api/test/checkChangePassFlag",
+    [authJwt.verifyToken],
+    controller.getChangePassFlag
+  );
+
+  app.get(
+    "/api/test/streetlights",
+    [authJwt.verifyToken],
+    controller.getStreetlightData
   );
 };

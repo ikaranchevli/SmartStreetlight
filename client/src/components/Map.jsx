@@ -4,8 +4,9 @@ import { Component, Fragment } from "react";
 import "./Map/Map.css";
 import shouldPureComponentUpdate from "react-pure-render";
 import currentLocationMarker from "./images/currentLocation.svg";
-
 import { FaLocationArrow } from "react-icons/fa";
+import boundary1 from "./boundaries/jenmask1.geojson";
+import boundary2 from "./boundaries/mel_city.geojson";
 
 var today = new Date();
 var curHr = today.getHours();
@@ -41,31 +42,31 @@ class GoogleMaps extends Component {
       gpsStatus: false,
       defaultGps: null,
       markerOpacity: 1,
+      mapRef: React.createRef(),
     };
   }
 
   sendSelectedDevice = (selectedLight) => {
     this.props.portalDeviceSelectedCallback(selectedLight);
-  }
-
+  };
 
   lightColor(light) {
     if (light.CURRENT_MAGNITUDE > 0) {
-      return "#2ecc71";
-    } else if (light.CURRENT_MAGNITUDE === 0) {
+      // return "#2ecc71";
       return "#ffa500";
-    } else if (
-      light.CURRENT_MAGNITUDE == null &&
-      light.UIQ_DEVICE_STATE == null
-    ) {
+    } else if (light.CURRENT_MAGNITUDE === 0) {
+      // return "#ffa500";
+      return "#3DCE81";
+    } else if (light.CURRENT_MAGNITUDE == null) {
       return "#E74C3C";
-    } else if (light.UIQ_DEVICE_STATE === "Unreachable") {
-      return "#808080";
-    } else if (light.UIQ_DEVICE_STATE === "New") {
-      return "#2c2cd1";
-    } else {
-      return "#f0e68c";
     }
+    // else if (light.UIQ_DEVICE_STATE === "Unreachable") {
+    //   return "#808080";
+    // } else if (light.UIQ_DEVICE_STATE === "New") {
+    //   return "#2c2cd1";
+    // } else {
+    //   return "#f0e68c";
+    // }
   }
 
   searchCenter(searchDevice) {
@@ -89,17 +90,14 @@ class GoogleMaps extends Component {
   render() {
     // console.log(this.state);
     const apiIsLoaded = (map, maps) => {
-      navigator?.geolocation.getCurrentPosition(
-        ({ coords: { latitude: lat, longitude: lng } }) => {
-          const pos = { lat, lng };
-          this.setState({
-            currentLocation: pos,
-            gpsStatus: true,
-            defaultGps: pos,
-          });
-        }
-      );
+      map.data.loadGeoJson(boundary1);
+      map.data.loadGeoJson(boundary2);
+      map.data.setStyle({
+        // fillColor: "#ffffff",
+        strokeWeight: 1,
+      });
     };
+
     return (
       <div className="map">
         <GoogleMapReact
@@ -116,10 +114,20 @@ class GoogleMaps extends Component {
             draggableCursor: "default",
             disableDoubleClickZoom: "true",
             fullscreenControl: false,
+            restriction: {
+              latLngBounds: {
+                north: -36,
+                south: -39,
+                west: 139,
+                east: 149,
+              },
+            },
           }}
-          onDrag={() => {
+          onDragEnd={() => {
             this.setState({
               currentLocation: null,
+              selectedLight: null,
+              markerOpacity: 1,
             });
           }}
           onClick={() => {
@@ -172,7 +180,6 @@ class GoogleMaps extends Component {
                     selectedLight: null,
                     markerOpacity: 1,
                   });
-                  this.sendSelectedDevice(this.state.selectedLight);
                 }}
               ></div>
               <div className="marker-info-window">
@@ -181,42 +188,9 @@ class GoogleMaps extends Component {
                   {this.state.selectedLight.UTIL_DEVICE_ID}
                 </text>
               </div>
-              {/* Below is info window component */}
-
-              {/* <div
-                className="selected-marker"
-                style={{
-                  background: this.lightColor(this.state.selectedLight),
-                }}
-              ></div>
-              <div className="marker-info-window">Info window</div> */}
-            </div>
-          )}
-
-          {this.state.gpsStatus && (
-            <div
-              lat={this.state.defaultGps.lat}
-              lng={this.state.defaultGps.lng}
-            >
-              <img src={currentLocationMarker} alt="geolocation" />
             </div>
           )}
         </GoogleMapReact>
-        <div
-          className="locationReset-icon"
-          style={{
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            this.setState({
-              currentLocation: this.state.defaultGps,
-            });
-          }}
-        >
-          <FaLocationArrow className="location-icon" />
-        </div>
-       
-    
       </div>
     );
   }

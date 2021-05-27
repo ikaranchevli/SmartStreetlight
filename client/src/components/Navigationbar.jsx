@@ -49,7 +49,10 @@ class Navigationbar extends Component {
                 <text className="user-name">{currentUser.firstname}</text>
               </div>
               <div className="user-type-area">
-                <text className="user-type">Councilman</text>
+                <text className="user-type">
+                  {currentUser.roles[0].substring(5, 6) +
+                    currentUser.roles[0].substring(6, 15).toLowerCase()}
+                </text>
               </div>
               <div className="arrow-area">
                 <div className="dropdown-arrow"></div>

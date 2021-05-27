@@ -6,6 +6,14 @@ const User = db.user;
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
+  // const { exp } = jwt.decode(token);
+  // console.log(exp);
+  // if (Date.now() >= exp * 1000) {
+  //   console.log("################   YES     ##################");
+  // } else {
+  //   console.log("***************   NOOOOOOOOO     *********************");
+  // }
+
   if (!token) {
     return res.status(403).send({
       message: "No token provided!",

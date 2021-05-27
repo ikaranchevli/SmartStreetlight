@@ -30,7 +30,7 @@ const DeviceInfo = ({ device }) => {
     }
   };
   return (
-    <div className="infoTab">
+    <div className="infoTab border-left">
       <h2 style={{ style: "open sans" }}>Device Information</h2>
       <br></br>
       {device && (

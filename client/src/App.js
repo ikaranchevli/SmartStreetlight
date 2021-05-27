@@ -25,13 +25,12 @@ class App extends Component {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showAdminContent: false,
       currentUser: undefined,
     };
 
-    // history.listen((location) => {
-    //   props.dispatch(clearMessage()); // clear message when changing location
-    // });
+    history.listen((location) => {
+      props.dispatch(clearMessage()); // clear message when changing location
+    });
   }
 
   componentDidMount() {
@@ -69,4 +68,11 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(App);

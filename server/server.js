@@ -24,13 +24,14 @@ const User = db.user;
 const userRoles = db.userRoles;
 
 db.sequelize.sync();
+
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and Resync Db");
 //   initial();
 // });
 
 app.get("/admin/portal", (req, res) => {
-  fs.readFile("./data/StreetLights.json", "utf-8", (err, jsonString) => {
+  fs.readFile("./data/streetlight.json", "utf-8", (err, jsonString) => {
     // console.log(jsonString);
     res.json(JSON.parse(jsonString));
   });
@@ -63,12 +64,12 @@ function initial() {
     name: "admin",
   });
 
-  User.create({
-    id: 1,
-    firstname: "admin",
-    lastname: "admin",
-    email: "admin@admin.com",
-    password: bcrypt.hashSync("admin", 8),
-    roles: ["admin"],
-  });
+  // User.create({
+  //   id: 1,
+  //   firstname: "admin",
+  //   lastname: "admin",
+  //   email: "admin@admin.com",
+  //   password: bcrypt.hashSync("admin", 8),
+  //   roles: ["admin"],
+  // });
 }

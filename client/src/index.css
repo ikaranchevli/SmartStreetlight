@@ -329,7 +329,7 @@ body {
   top: 75px;
   width: 400px;
   background-color: rgb(255, 255, 255);
-  box-shadow: -5px 30px 10px #00000029;
+  /* box-shadow: -5px 30px 10px #00000029; */
   border-radius: 1px;
   font-size: 10px;
   color: rgb(79, 79, 79);
@@ -504,15 +504,15 @@ body {
 }
 
 .ON {
-  background-color: #3DCE81;
+  background-color: #3dce81;
 }
 
 .FAULTY {
-  background-color: #ED6464;
+  background-color: #ed6464;
 }
 
 .OFF {
-  background-color: #ACACAC;
+  background-color: #acacac;
 }
 
 .UNREACHABLE {
@@ -520,7 +520,7 @@ body {
 }
 
 .TO_BE_INSTALLED {
-  background-color: #006CB5;
+  background-color: #006cb5;
 }
 
 .UNKNOWN {
