@@ -53,6 +53,12 @@ class Devices extends Component {
     });
   }
 
+  assignMapClickedEventTrigger() {
+    this.setState({
+      showDeviceInfo: false,
+    });
+  }
+
   valueChecker(value) {
     if (value == null) {
       return "Not Available";
@@ -62,6 +68,24 @@ class Devices extends Component {
 
   getState(device) {
     if (device) {
+      var status = helpers.getStatusOfDeviceNew(device);
+      switch (status) {
+        case DeviceStatus.ON:
+          return <text className="status-on"> On </text>;
+        case DeviceStatus.OFF:
+          return <text className="status-off"> Off </text>;
+        case DeviceStatus.FAULTY:
+          return <text className="status-fault"> Faulty </text>;
+        case DeviceStatus.UNREACHABLE:
+          return <text className="status-unreachable"> Unreachable </text>;
+        case DeviceStatus.NEW:
+          return <text className="status-new"> New </text>;
+        default:
+          //return <text className="status-unnknow"> Unknow </text>;
+          return <text className="status-fault"> Faulty </text>;
+      }
+
+      /*
       if (device.CURRENT_MAGNITUDE > 0) {
         return <text className="status-on"> On </text>;
       } else if (device.CURRENT_MAGNITUDE === 0) {
@@ -78,6 +102,7 @@ class Devices extends Component {
       } else {
         return <text className="status-unnknow"> Unknow </text>;
       }
+      */
     }
   }
 
@@ -376,7 +401,7 @@ class Devices extends Component {
             </div>
             <div className="row border border-1 border-top-0 p-3">
               <div className="col-3">
-                <img src={SwitchedOff} />
+                <img src={Unreachable} />
               </div>
               <div className="col-6 align-self-center infoTab-row-text">
                 Switched Off
@@ -397,7 +422,7 @@ class Devices extends Component {
                 </div>
               </div>
             </div>
-            <div className="row border border-1 border-top-0 p-3">
+            <div className="row border border-1 border-top-0 rounded-bottom p-3">
               <div className="col-3">
                 <img src={Falty} />
               </div>
@@ -421,7 +446,7 @@ class Devices extends Component {
               </div>
             </div>
 
-            <div className="row border border-1 border-top-0 p-3">
+            {/* <div className="row border border-1 border-top-0 p-3">
               <div className="col-3">
                 <img src={ToBeInstalled} />
               </div>
@@ -443,9 +468,9 @@ class Devices extends Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div className="row border border-1 border-top-0 rounded-bottom p-3">
+            {/* <div className="row border border-1 border-top-0 rounded-bottom p-3">
               <div className="col-3">
                 <img src={Unreachable} />
               </div>
@@ -467,7 +492,7 @@ class Devices extends Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

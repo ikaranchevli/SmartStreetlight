@@ -67,10 +67,17 @@ class Portal extends Component {
   }
 
   callbackFunctionDeviceSelected = (selectedDevice) => {
-    console.log(selectedDevice);
     this.setState({ selectedLight: selectedDevice });
     this.devicesComponent.current.assignSelectedDevice(selectedDevice);
   };
+
+  callbackFunctionMapClicked = () => {
+    this.devicesComponent.current.assignMapClickedEventTrigger();
+  };
+
+  renderListView() {
+    return <div>Hello World</div>;
+  }
 
   //this is the API call from the server, to get streetlight data.
   componentDidMount() {
@@ -107,6 +114,9 @@ class Portal extends Component {
     this.setState({
       mapView: view,
     });
+    if (view === "list") {
+      this.callbackFunctionMapClicked();
+    }
   };
 
   setSearchDevice = (device) => {
@@ -258,6 +268,7 @@ class Portal extends Component {
             data={this.state.data}
             searchDevice={this.state.searchDevice}
             portalDeviceSelectedCallback={this.callbackFunctionDeviceSelected}
+            portalMapClickedCallback={this.callbackFunctionMapClicked}
           />
         )}
         {this.state.mapView === "list" && (

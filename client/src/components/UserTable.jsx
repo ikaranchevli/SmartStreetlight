@@ -667,10 +667,6 @@ class UserTable extends Component {
                       </Form.Item>
                     </Col>
                   </Row>
-                  <Divider></Divider>
-                  <Form.Item label="Reset Password" name="newPass">
-                    <Input.Password placeholder="New Password" name="newPass" />
-                  </Form.Item>
                 </Form>
               </Modal>
 

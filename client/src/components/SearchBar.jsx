@@ -123,9 +123,9 @@ const SearchBar = (props) => {
                     props.statusFilter(null);
                   }}
                 >
-                  Faulty/Unkown
+                  Faulty
                 </p>
-                <p
+                {/* <p
                   className="filter-dropdown-menu-item"
                   onClick={() => {
                     setStatusFilterDefault("Unreachable");
@@ -142,7 +142,7 @@ const SearchBar = (props) => {
                   }}
                 >
                   To be Installed
-                </p>
+                </p> */}
                 {/* <p
                   className="filter-dropdown-menu-item"
                   onClick={() => {

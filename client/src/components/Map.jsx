@@ -34,8 +34,8 @@ class GoogleMaps extends Component {
     super(props);
 
     this.state = {
-      currentLocation: { lat: -37.8189572, lng: 144.9551552 },
-      mapZoom: 17,
+      currentLocation: { lat: -37.792397, lng: 144.923355 },
+      mapZoom: 15,
       selectedLight: null,
       cursorStyle: null,
       markerStyle: null,
@@ -48,6 +48,10 @@ class GoogleMaps extends Component {
 
   sendSelectedDevice = (selectedLight) => {
     this.props.portalDeviceSelectedCallback(selectedLight);
+  };
+
+  sendMapClickedEvent = () => {
+    this.props.portalMapClickedCallback();
   };
 
   lightColor(light) {
@@ -135,6 +139,7 @@ class GoogleMaps extends Component {
               selectedLight: null,
               markerOpacity: 1,
             });
+            this.sendMapClickedEvent();
           }}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps)}

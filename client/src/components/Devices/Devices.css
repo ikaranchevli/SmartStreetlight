@@ -11,7 +11,7 @@
   /* color: rgb(79, 79, 79); */
   /* font-weight: bold; */
   overflow-y: hidden !important;
-  height: 91.7vh;
+  height: auto;
 }
 
 .infoTab-header {
