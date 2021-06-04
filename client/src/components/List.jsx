@@ -37,7 +37,7 @@ const List = (props) => {
             <span className="bulbIconCustom FAULTY">
               <i className="fa fa-lightbulb"></i>
             </span>
-            <span className="customTextTable">Faulty</span>
+            <span className="customTextTable">Unreachable</span>
           </div>
         );
       case DeviceStatus.UNREACHABLE:

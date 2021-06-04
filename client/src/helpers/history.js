@@ -5,8 +5,8 @@ export const history = createBrowserHistory();
 export const DeviceStatus = {
   ON: "On",
   OFF: "Off",
-  FAULTY: "Faulty",
-  UNREACHABLE: "Unreachable",
+  FAULTY: "Unreachable",
+  // UNREACHABLE: "Unreachable",
   NEW: "New",
   DISCOVERED: "Discovered",
   TO_BE_INSTALLED: "To Be Installed",

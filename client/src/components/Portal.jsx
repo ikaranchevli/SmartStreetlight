@@ -75,10 +75,6 @@ class Portal extends Component {
     this.devicesComponent.current.assignMapClickedEventTrigger();
   };
 
-  renderListView() {
-    return <div>Hello World</div>;
-  }
-
   //this is the API call from the server, to get streetlight data.
   componentDidMount() {
     const { user: currentUser } = this.props;
@@ -125,7 +121,7 @@ class Portal extends Component {
     });
 
     if (device) {
-      this.state.data = this.state.data.filter(
+      this.state.listViewData = this.state.listViewData.filter(
         (deviceInner) =>
           String(deviceInner.UTIL_DEVICE_ID).indexOf(String(device)) >= 0 ||
           deviceInner.UTIL_DEVICE_ID === device
@@ -133,6 +129,7 @@ class Portal extends Component {
     }
 
     // // console.log(`searching for: ${device}`);
+
     if (this.Map && this.Map.current) {
       this.Map.current.searchCenter(device);
     }
@@ -141,7 +138,7 @@ class Portal extends Component {
   setCouncilFilter = (filter) => {
     var tempData = [];
     // console.log(filter);
-    if (filter == "All") {
+    if (filter == "ALL") {
       tempData = this.state.apiResponse;
       // console.log(tempData);
       this.setState({
@@ -179,18 +176,20 @@ class Portal extends Component {
     } else {
       this.setState({
         data: tempData,
+        listViewData: tempData,
       });
     }
   };
 
   setStatusFilter = (filter) => {
     var tempData = [];
-    if (filter == "All") {
+    if (filter == "ALL") {
       tempData = this.state.apiResponse;
       // console.log(tempData);
       this.setState({
         filterStatus: "None",
         data: tempData,
+        listViewData: tempData,
       });
     } else {
       this.setState({
@@ -216,6 +215,7 @@ class Portal extends Component {
     } else {
       this.setState({
         data: tempData,
+        listViewData: tempData,
       });
     }
   };
@@ -272,7 +272,10 @@ class Portal extends Component {
           />
         )}
         {this.state.mapView === "list" && (
-          <List view={this.setView} data={this.state.data} />
+          <List
+            data={this.state.listViewData}
+            searchDevice={this.state.searchDevice}
+          />
         )}
 
         <Devices ref={this.devicesComponent} device={this.state.apiResponse} />

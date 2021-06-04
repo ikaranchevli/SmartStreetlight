@@ -38,9 +38,7 @@ class Navigationbar extends Component {
             <div>
               <img alt="portal" src={streetlightLogo} className="brand2" />
             </div>
-            <div className="user-profile">
-              <img alt="user" src={userAccount} className="user-image" />
-            </div>
+
             <div
               className="user-info"
               onClick={() => this.setState({ menu: !this.state.menu })}
@@ -58,17 +56,22 @@ class Navigationbar extends Component {
                 <div className="dropdown-arrow"></div>
                 {this.state.menu && (
                   <div className="dropdown-menu-area">
-                    <div className="dropdown-menu-items">
-                      <a href="/users" className="dropdown-menu-text">
-                        Manage Users
-                      </a>
-                    </div>
-                    <div className="dropdown-menu-items">
+                    {currentUser.roles[0] === "ROLE_ADMIN" && (
+                      <>
+                        <div className="dropdown-menu-items">
+                          <a href="/users" className="dropdown-menu-text">
+                            Manage Users
+                          </a>
+                        </div>
+                        <hr className="solid"></hr>
+                      </>
+                    )}
+                    {/* <div className="dropdown-menu-items">
                       <a href="#" className="dropdown-menu-text">
                         Edit Account
                       </a>
-                    </div>
-                    <hr className="solid"></hr>
+                    </div> */}
+
                     <div className="dropdown-menu-items">
                       <a
                         href="#"

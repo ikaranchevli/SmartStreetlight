@@ -15,7 +15,6 @@ import {
   Popconfirm,
   message,
   Modal,
-  Divider,
   Breadcrumb,
   Empty,
   Alert,
@@ -105,6 +104,16 @@ class UserTable extends Component {
           )}
         </>
       ),
+    },
+    {
+      title: "Created",
+      dataIndex: "created",
+      key: "created",
+    },
+    {
+      title: "Last Active",
+      dataIndex: "lastActive",
+      key: "lastActive",
     },
     {
       title: "Status",
@@ -231,6 +240,8 @@ class UserTable extends Component {
             email: response.data.user[i].email,
             role: userRole,
             status: status,
+            created: Date(response.data.user[i].createdAt).substring(0, 24),
+            lastActive: Date().substring(0, 24),
           };
           allUsers.push(newUser);
         }

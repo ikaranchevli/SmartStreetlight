@@ -5,6 +5,7 @@
   height: 75px;
   border: 1px solid #e7e7e7;
   box-sizing: border-box;
+  z-index: 2;
 }
 
 .toggle-switch-area {
@@ -12,6 +13,10 @@
   width: 10%;
   height: inherit;
   padding: 2rem;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .toggle-switch-button-area {
@@ -27,10 +32,9 @@
 .switch {
   position: relative;
   display: inline-block;
-  bottom: 4.5px;
   left: 8%;
-  width: 100px;
-  height: 40px;
+  width: 90px;
+  height: 32.5px;
 }
 /* 
   .switch input {
@@ -98,7 +102,7 @@
 
 .search-bar-area {
   position: absolute;
-  width: 25%;
+  width: 20%;
   height: inherit;
   padding: 2rem;
   left: 9%;
@@ -110,7 +114,7 @@
 
 .search-bar {
   position: absolute;
-  width: 80%;
+  width: 85%;
   left: 10%;
   right: 10%;
   height: 40px;
@@ -166,6 +170,19 @@
   outline: none;
 }
 
+.status-header-area {
+  position: absolute;
+  left: 29%;
+  height: inherit;
+  width: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 600;
+}
+
 .status-filter-area {
   position: absolute;
   left: 34%;
@@ -190,9 +207,22 @@
   border: 1px solid #e1e1e1;
 }
 
-.council-filter-area {
+.council-header-area {
   position: absolute;
   left: 48%;
+  height: inherit;
+  width: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 600;
+}
+
+.council-filter-area {
+  position: absolute;
+  left: 53%;
   height: inherit;
   width: 14%;
   display: flex;

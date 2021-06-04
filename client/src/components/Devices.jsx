@@ -75,7 +75,7 @@ class Devices extends Component {
         case DeviceStatus.OFF:
           return <text className="status-off"> Off </text>;
         case DeviceStatus.FAULTY:
-          return <text className="status-fault"> Faulty </text>;
+          return <text className="status-fault"> Unreachable </text>;
         case DeviceStatus.UNREACHABLE:
           return <text className="status-unreachable"> Unreachable </text>;
         case DeviceStatus.NEW:
@@ -427,7 +427,7 @@ class Devices extends Component {
                 <img src={Falty} />
               </div>
               <div className="col-6 align-self-center infoTab-row-text">
-                Faulty
+                Unreachable
               </div>
               <div className="col-3 text-center align-self-center">
                 <div className="row">
@@ -530,6 +530,15 @@ class Devices extends Component {
                     </span>
                   </li>
                   <li className="list-group-item px-3 py-2">
+                    <strong>Pole ID : </strong>
+                    <span>
+                      {" "}
+                      {this.valueChecker(
+                        this.state.selectedDevice.UTIL_PREMISE_ID
+                      )}{" "}
+                    </span>
+                  </li>
+                  <li className="list-group-item px-3 py-2">
                     <strong>Device State : </strong>
                     <span> {this.getState(this.state.selectedDevice)} </span>
                   </li>
@@ -562,15 +571,6 @@ class Devices extends Component {
                     <strong>Insert TS : </strong>
                     <span>
                       {this.valueChecker(this.state.selectedDevice.INSERT_TS)}
-                    </span>
-                  </li>
-                  <li className="list-group-item px-3 py-2">
-                    <strong>Premise ID : </strong>
-                    <span>
-                      {" "}
-                      {this.valueChecker(
-                        this.state.selectedDevice.PREMISE_ID
-                      )}{" "}
                     </span>
                   </li>
                   <li className="list-group-item px-3 py-2">
