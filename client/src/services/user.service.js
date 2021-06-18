@@ -78,6 +78,10 @@ class UserService {
       headers: authHeader(),
     });
   }
+
+  getStreetlightData() {
+    return axios.get(API_URL + "getStreetlightData", { headers: authHeader() });
+  }
 }
 
 export default new UserService();

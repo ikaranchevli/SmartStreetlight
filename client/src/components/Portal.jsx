@@ -86,7 +86,7 @@ class Portal extends Component {
       "FLEMINGTON",
     ];
 
-    api.get("admin/portal").then((res) => {
+    UserService.getStreetlightData().then((res) => {
       // // console.log(res.data.devices);
       this.setState({
         apiResponse: res.data.devices,

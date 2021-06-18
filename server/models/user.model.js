@@ -21,6 +21,9 @@ module.exports = (sequelize, Sequelize) => {
     failedLoginAttempts: {
       type: Sequelize.INTEGER,
     },
+    lastLogin: {
+      type: Sequelize.DATE,
+    },
   });
 
   return User;

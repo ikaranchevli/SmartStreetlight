@@ -9,6 +9,7 @@ import Falty from "./images/faulty.svg";
 import ToBeInstalled from "./images/tobeInstalled.svg";
 import Unreachable from "./images/unreachable.svg";
 import { IoNavigate } from "react-icons/io5";
+import UserService from "../services/user.service";
 
 import streetLightsData from "./StreetLights.json";
 
@@ -27,7 +28,7 @@ class Devices extends Component {
 
   componentDidMount() {
     var alldevices = [];
-    api.get("admin/portal").then((res) => {
+    UserService.getStreetlightData().then((res) => {
       // console.log(res.data.devices);
       this.setState({
         devices: res.data.devices,

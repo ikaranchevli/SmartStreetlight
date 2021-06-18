@@ -7,6 +7,8 @@ import currentLocationMarker from "./images/currentLocation.svg";
 import { FaLocationArrow } from "react-icons/fa";
 import boundary1 from "./boundaries/jenmask1.geojson";
 import boundary2 from "./boundaries/mel_city.geojson";
+import boundaryA from "./GeoJson/jen_lga_boundary_cut_result.geojson";
+import boundaryB from "./GeoJson/jen_lga_boundary_gather_coverage.geojson";
 
 var today = new Date();
 var curHr = today.getHours();
@@ -98,6 +100,7 @@ class GoogleMaps extends Component {
       //   "https://data.gov.au/geoserver/vic-local-government-areas-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_bdf92691_c6fe_42b9_a0e2_a4cd716fa811&outputFormat=json"
       // );
       map.data.loadGeoJson(boundary1);
+      // map.data.loadGeoJson(boundaryB);
       // map.data.loadGeoJson(boundary2);
       map.data.setStyle({
         // fillColor: "#ffffff",

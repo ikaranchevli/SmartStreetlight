@@ -102,6 +102,7 @@ exports.signin = (req, res) => {
       });
 
       user.failedLoginAttempts = 0;
+      user.lastLogin = Date.now();
       user.save();
 
       var authorities = [];

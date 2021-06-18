@@ -73,7 +73,7 @@ module.exports = function (app) {
   );
 
   app.get(
-    "/api/test/streetlights",
+    "/api/test/getStreetlightData",
     [authJwt.verifyToken],
     controller.getStreetlightData
   );

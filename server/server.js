@@ -30,14 +30,6 @@ db.sequelize.sync();
 //   initial();
 // });
 
-app.get("/admin/portal", (req, res) => {
-  fs.readFile("./data/streetlight.json", "utf-8", (err, jsonString) => {
-    // console.log(jsonString);
-    res.json(JSON.parse(jsonString));
-  });
-  // res.json({ message: "Welcome to application." });
-});
-
 // routes
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
