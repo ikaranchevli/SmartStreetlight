@@ -3,7 +3,7 @@ const config = require("../config/auth.config");
 const User = db.user;
 const Role = db.role;
 const userRole = db.userRoles;
-const fs = require("fs");
+var data = require("../data/streetlight.json");
 
 var bcrypt = require("bcryptjs");
 const users = User.findAll();
@@ -30,7 +30,6 @@ exports.getUsers = (req, res) => {
       if (!user) {
         return res.status(404).send({ message: "User Not found." });
       }
-
       res.status(200).send({ user });
     })
     .catch((err) => {
@@ -156,7 +155,5 @@ exports.getChangePassFlag = (req, res) => {
 };
 
 exports.getStreetlightData = (req, res) => {
-  fs.readFile("../data/streetlight.json", "utf-8", (err, jsonString) => {
-    res.json(JSON.parse(jsonString));
-  });
+  res.status(200).send(data);
 };
