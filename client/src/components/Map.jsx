@@ -76,7 +76,6 @@ class GoogleMaps extends Component {
   }
 
   searchCenter(searchDevice) {
-    console.log(`Reached here ${searchDevice}`);
     this.props.data.map((device) => {
       if (device.UTIL_DEVICE_ID == searchDevice) {
         this.setState({
@@ -94,13 +93,9 @@ class GoogleMaps extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
 
   render() {
-    // console.log(this.state);
     const apiIsLoaded = (map, maps) => {
-      // map.data.loadGeoJson(
-      //   "https://data.gov.au/geoserver/vic-local-government-areas-psma-administrative-boundaries/wfs?request=GetFeature&typeName=ckan_bdf92691_c6fe_42b9_a0e2_a4cd716fa811&outputFormat=json"
-      // );
-      map.data.loadGeoJson(boundary1);
-      // map.data.loadGeoJson(boundaryB);
+      //map.data.loadGeoJson(boundary1);
+      map.data.loadGeoJson(boundaryA);
       // map.data.loadGeoJson(boundary2);
       map.data.setStyle({
         // fillColor: "#ffffff",

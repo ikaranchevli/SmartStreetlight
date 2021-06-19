@@ -49,9 +49,12 @@ class Portal extends Component {
   constructor(props) {
     super(props);
 
+    // Creating a Ref() to call the child events for responsive methods
     this.Map = React.createRef();
     this.devicesComponent = React.createRef();
 
+    // filterStatus and filterCouncil props are for setting the selected filter types from the searchbar component, later used to filter the fetched data
+    // props: apiResponse => will never change, where as props: data => is dynamic and refers from apiResponse
     this.state = {
       apiResponse: [],
       data: [],
@@ -75,7 +78,11 @@ class Portal extends Component {
     this.devicesComponent.current.assignMapClickedEventTrigger();
   };
 
-  //this is the API call from the server, to get streetlight data.
+  renderListView() {
+    return <div>Hello World</div>;
+  }
+
+  // Insert a map() method for fetched data to store all the available councils
   componentDidMount() {
     const { user: currentUser } = this.props;
 
@@ -86,8 +93,8 @@ class Portal extends Component {
       "FLEMINGTON",
     ];
 
+    //this is the API call from the server, to get streetlight data.
     UserService.getStreetlightData().then((res) => {
-      // // console.log(res.data.devices);
       this.setState({
         apiResponse: res.data.devices,
         data: res.data.devices,
@@ -100,12 +107,13 @@ class Portal extends Component {
       UserService.checkChangePassFlag(currentUser.email).then((response) => {
         this.setState({
           showChangePassModal: response.data,
+          showChangePassModal: response.listViewData,
         });
       });
     }
   }
 
-  //NEWLY ADDED
+  // Changing view type as per toggle switch event
   setView = (view) => {
     this.setState({
       mapView: view,
@@ -115,6 +123,7 @@ class Portal extends Component {
     }
   };
 
+  // To find the device in the fetched data for the entered device ID on the search bar component
   setSearchDevice = (device) => {
     this.setState({
       searchDevice: device,
@@ -128,8 +137,6 @@ class Portal extends Component {
       );
     }
 
-    // // console.log(`searching for: ${device}`);
-
     if (this.Map && this.Map.current) {
       this.Map.current.searchCenter(device);
     }
@@ -137,10 +144,8 @@ class Portal extends Component {
 
   setCouncilFilter = (filter) => {
     var tempData = [];
-    // console.log(filter);
     if (filter == "ALL") {
       tempData = this.state.apiResponse;
-      // console.log(tempData);
       this.setState({
         filterCouncil: null,
         data: tempData,
@@ -165,10 +170,16 @@ class Portal extends Component {
           data: tempData.filter(
             (device) => device.CURRENT_MAGNITUDE == this.state.filterStatus
           ),
+          listViewData: tempData.filter(
+            (device) => device.CURRENT_MAGNITUDE == this.state.filterStatus
+          ),
         });
       } else {
         this.setState({
           data: tempData.filter(
+            (device) => device.UIQ_DEVICE_STATE == this.state.filterStatus
+          ),
+          listViewData: tempData.filter(
             (device) => device.UIQ_DEVICE_STATE == this.state.filterStatus
           ),
         });
@@ -185,7 +196,6 @@ class Portal extends Component {
     var tempData = [];
     if (filter == "ALL") {
       tempData = this.state.apiResponse;
-      // console.log(tempData);
       this.setState({
         filterStatus: "None",
         data: tempData,
@@ -211,6 +221,9 @@ class Portal extends Component {
         data: tempData.filter(
           (device) => device.CITY == this.state.filterCouncil
         ),
+        listViewData: tempData.filter(
+          (device) => device.CITY == this.state.filterCouncil
+        ),
       });
     } else {
       this.setState({
@@ -227,7 +240,6 @@ class Portal extends Component {
     if (schema.validate(value.password)) {
       UserService.updatePassword(currentUser.email, value.password, false).then(
         (response) => {
-          console.log(response);
           if (response.data === "Password updated") {
             message.success("Password updated successfully.");
             this.setState({
@@ -273,6 +285,7 @@ class Portal extends Component {
         )}
         {this.state.mapView === "list" && (
           <List
+            view={this.setView}
             data={this.state.listViewData}
             searchDevice={this.state.searchDevice}
           />

@@ -74,22 +74,16 @@ class Login extends Component {
 
     const { dispatch, history } = this.props;
 
-    if (this.checkBtn.context._errors.length === 0) {
-      dispatch(login(this.state.email, this.state.password))
-        .then(() => {
-          history.push("/portal");
-          window.location.reload();
-        })
-        .catch(() => {
-          this.setState({
-            loading: false,
-          });
+    dispatch(login(this.state.email, this.state.password))
+      .then(() => {
+        history.push("/portal");
+        window.location.reload();
+      })
+      .catch(() => {
+        this.setState({
+          loading: false,
         });
-    } else {
-      this.setState({
-        loading: false,
       });
-    }
   }
 
   render() {
@@ -159,15 +153,9 @@ class Login extends Component {
                     {this.state.loading && (
                       <span className="spinner-border spinner-border-sm"></span>
                     )}
-                    <span>Login</span>
-                  </button>
 
-                  <CheckButton
-                    style={{ display: "none" }}
-                    ref={(c) => {
-                      this.checkBtn = c;
-                    }}
-                  />
+                    {!this.state.loading && <span>Login</span>}
+                  </button>
                 </Form>
               </div>
             </div>

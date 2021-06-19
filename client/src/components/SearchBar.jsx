@@ -22,7 +22,6 @@ const SearchBar = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(`Submitting ID: ${searchDevice}`);
     props.device(searchDevice);
   };
 

@@ -23,12 +23,15 @@ const Role = db.role;
 const User = db.user;
 const userRoles = db.userRoles;
 
-db.sequelize.sync();
+// [[ Comment this out after the initial run otherwise it drop tables everytime your urn the server ]]
 
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and Resync Db");
 //   initial();
 // });
+
+//  [[ Uncomment this after the initial run to sync the databases ]]
+db.sequelize.sync();
 
 // routes
 require("./routes/auth.routes")(app);
@@ -55,13 +58,4 @@ function initial() {
     id: 3,
     name: "admin",
   });
-
-  // User.create({
-  //   id: 1,
-  //   firstname: "admin",
-  //   lastname: "admin",
-  //   email: "admin@admin.com",
-  //   password: bcrypt.hashSync("admin", 8),
-  //   roles: ["admin"],
-  // });
 }

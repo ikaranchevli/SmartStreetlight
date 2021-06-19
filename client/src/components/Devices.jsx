@@ -29,18 +29,10 @@ class Devices extends Component {
   componentDidMount() {
     var alldevices = [];
     UserService.getStreetlightData().then((res) => {
-      // console.log(res.data.devices);
       this.setState({
         devices: res.data.devices,
       });
     });
-    // for (var i = 0; i < streetLightsData.devices.length; i++) {
-    //   console.log("reading::::" + streetLightsData.devices[i]);
-    //   alldevices.push(streetLightsData.devices[i]);
-    // }
-    // this.setState({
-    //   devices: alldevices,
-    // });
   }
 
   assignSelectedDevice(device) {
@@ -85,25 +77,6 @@ class Devices extends Component {
           //return <text className="status-unnknow"> Unknow </text>;
           return <text className="status-fault"> Faulty </text>;
       }
-
-      /*
-      if (device.CURRENT_MAGNITUDE > 0) {
-        return <text className="status-on"> On </text>;
-      } else if (device.CURRENT_MAGNITUDE === 0) {
-        return <text className="status-off"> Off </text>;
-      } else if (
-        device.CURRENT_MAGNITUDE == null &&
-        device.UIQ_DEVICE_STATE == null
-      ) {
-        return <text className="status-fault"> Faulty </text>;
-      } else if (device.UIQ_DEVICE_STATE === "Unreachable") {
-        return <text className="status-unreachable"> Unreachable </text>;
-      } else if (device.UIQ_DEVICE_STATE === "New") {
-        return <text className="status-new"> New </text>;
-      } else {
-        return <text className="status-unnknow"> Unknow </text>;
-      }
-      */
     }
   }
 
@@ -114,7 +87,6 @@ class Devices extends Component {
   }
 
   handleModalShowHide(device) {
-    console.log(device);
     this.setState({
       showHide: !this.state.showHide,
       statedDevice: device,
@@ -141,14 +113,12 @@ class Devices extends Component {
 
   handleChange(e) {
     let value = e.target.value;
-    console.log(value);
 
     var alldevices = [];
     for (var i = 0; i < streetLightsData.devices.length; i++) {
       if (
         streetLightsData.devices[i].UTIL_DEVICE_ID.toString().includes(value)
       ) {
-        console.log("FOUND::::" + streetLightsData.devices[i]);
         alldevices.push(streetLightsData.devices[i]);
       }
     }
@@ -160,14 +130,12 @@ class Devices extends Component {
 
   handleCouncil(e) {
     let value = e.target.value;
-    console.log(value);
 
     var alldevices = [];
     for (var i = 0; i < streetLightsData.devices.length; i++) {
       if (
         streetLightsData.devices[i].UTIL_PREMISE_ID.toString().includes(value)
       ) {
-        console.log("FOUND::::" + streetLightsData.devices[i]);
         alldevices.push(streetLightsData.devices[i]);
       }
     }
@@ -179,14 +147,12 @@ class Devices extends Component {
 
   handleStatus(e) {
     let value = e.target.value;
-    console.log(value);
 
     var alldevices = [];
     for (var i = 0; i < streetLightsData.devices.length; i++) {
       if (
         this.findStatus(streetLightsData.devices[i]).toString().includes(value)
       ) {
-        console.log("FOUND::::" + streetLightsData.devices[i]);
         alldevices.push(streetLightsData.devices[i]);
       }
     }
@@ -218,7 +184,6 @@ class Devices extends Component {
   };
 
   renderStatus = (device) => {
-    //console.log(device);
     var status = helpers.getStatusOfDeviceNew(device);
 
     if (status === DeviceStatus.FAULTY) {

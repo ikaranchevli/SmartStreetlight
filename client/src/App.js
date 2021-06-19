@@ -7,12 +7,9 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import "./App.css";
 
-import Login from "./components/login.component";
-import Navigationbar from "./components/navbar.component";
+import Login from "./components/login.jsx";
 import Portal from "./components/Portal.jsx";
 import UsersTable from "./components/UserTable.jsx";
-import Modal from "./components/BootstrapModal";
-import DeviceSummary from "./components/DeviceSummary.jsx";
 
 import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
@@ -57,10 +54,7 @@ class App extends Component {
           <Switch>
             <Route exact path={["/", "/login"]} component={Login} />
             <Route exact path="/portal" component={Portal} />
-            <Route path="/navbar" component={Navigationbar} />
             <Route path="/users" component={UsersTable} />
-            <Route path="/modal" component={Modal} />
-            <Route path="/devicesummary" component={DeviceSummary} />
           </Switch>
         </Router>
       </div>
